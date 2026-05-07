@@ -86,3 +86,62 @@ These are defaults, not hard biological rules. Adjust for your dataset quality a
 - FastANI can report asymmetric values depending on query/reference direction.
 - FastANI may still report some ANI values below 80 in practice; this wrapper applies post-run threshold filtering based on config.
 - Low assembly quality can increase missing or filtered results.
+
+## Phylogenetic Tree Workflow (Mashtree)
+
+This repository also includes a whole-genome similarity tree workflow for rapid, publication-quality visualization in proteomics or mass spectrometry projects:
+
+- Script: `mashtree_phylo_pipeline.sh`
+- Core tools: Mashtree, Mash, newick-utils
+- Intended use: comparative visualization (iTOL/FigTree), not deep evolutionary inference
+
+### Shared Input With ANI Workflow
+
+You can use the same top-level genome folder for both workflows.
+
+- ANI workflow input (from `ANI_script.sh`): `.fa`, `.fna`, `.fasta`
+- Phylogeny workflow input (from `mashtree_phylo_pipeline.sh`): `.fna`, `.fasta`
+
+Practical recommendation: store bacterial whole-genome assemblies as `.fna` or `.fasta` to run both scripts on the same directory without changes.
+
+### Install Tools on Ubuntu (CLI only)
+
+Use the built-in installer mode:
+
+```bash
+./mashtree_phylo_pipeline.sh --install
+```
+
+The installer uses Ubuntu apt packages where available and source fallback where needed.
+No Conda is required by default.
+
+### Run Tree Generation
+
+```bash
+./mashtree_phylo_pipeline.sh -i dna_sequences -t 16 -o genomes_tree
+```
+
+This performs:
+
+```bash
+mashtree --numcpus 16 <genomes...> > genomes_tree.nwk
+nw_reroot genomes_tree.nwk > genomes_tree_rooted.nwk
+```
+
+Outputs:
+
+- `genomes_tree.nwk` (unrooted Newick)
+- `genomes_tree_rooted.nwk` (rerooted Newick; ready for iTOL/FigTree upload)
+
+### ANI + Tree Using Same Files
+
+```bash
+./ANI_script.sh -i dna_sequences -o results/my_run
+./mashtree_phylo_pipeline.sh -i dna_sequences -t 16 -o genomes_tree
+```
+
+This yields ANI tables plus a rooted genome similarity tree from the same bacterial assembly set.
+
+### Rooting Note
+
+`nw_reroot` from newick-utils is used as requested for rerooting. When no outgroup is supplied, it reroots on the longest branch, which is suitable for practical display but should not be over-interpreted as formal evolutionary rooting.
