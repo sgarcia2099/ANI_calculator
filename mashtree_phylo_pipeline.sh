@@ -36,7 +36,7 @@ have_cmd() { command -v "$1" >/dev/null 2>&1; }
 
 install_newick_utils_from_source() {
     log "Installing newick-utils from source"
-    sudo apt-get install -y build-essential autoconf automake libtool flex bison git
+    sudo apt-get install -y build-essential autoconf automake libtool flex bison git libxml2-dev
 
     local tmp_dir
     tmp_dir="$(mktemp -d)"
@@ -44,9 +44,20 @@ install_newick_utils_from_source() {
 
     git clone --depth 1 https://github.com/tjunier/newick_utils "${tmp_dir}/newick_utils"
     cd "${tmp_dir}/newick_utils"
-    autoreconf -fi
-    ./configure --prefix=/usr/local
-    make -j"$(nproc)"
+
+    # Avoid inherited Conda/Miniforge include or linker flags and force
+    # -fcommon for older newick-utils sources on modern GCC toolchains.
+    env -u CPATH -u C_INCLUDE_PATH -u CPLUS_INCLUDE_PATH \
+        -u LIBRARY_PATH -u LD_LIBRARY_PATH -u CPPFLAGS -u LDFLAGS \
+        autoreconf -fi
+    env -u CPATH -u C_INCLUDE_PATH -u CPLUS_INCLUDE_PATH \
+        -u LIBRARY_PATH -u LD_LIBRARY_PATH \
+        CPPFLAGS= LDFLAGS= CFLAGS="-O2 -fcommon" \
+        ./configure --prefix=/usr/local
+    env -u CPATH -u C_INCLUDE_PATH -u CPLUS_INCLUDE_PATH \
+        -u LIBRARY_PATH -u LD_LIBRARY_PATH \
+        CPPFLAGS= LDFLAGS= CFLAGS="-O2 -fcommon" \
+        make -j"$(nproc)"
     sudo make install
 }
 
