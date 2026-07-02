@@ -13,6 +13,84 @@ This repository uses the following upstream resources:
 - Default Docker image used by this pipeline: `staphb/fastani:1.34`
 - Docker image page: https://hub.docker.com/r/staphb/fastani
 
+## Manuscript Citations
+
+If results from these workflows are used in a published manuscript, cite the
+scientific tools that were used for the reported analysis. The citations below
+follow each tool's preferred citation guidance where it was provided by the tool
+documentation or project page.
+
+### ANI Workflow
+
+- FastANI:
+  Jain, C., Rodriguez-R, L. M., Phillippy, A. M., Konstantinidis, K. T., and
+  Aluru, S. (2018). High throughput ANI analysis of 90K prokaryotic genomes
+  reveals clear species boundaries. *Nature Communications*, 9, 5114.
+  https://doi.org/10.1038/s41467-018-07641-9
+
+### Phylogenetic Tree Workflow
+
+- Mashtree:
+  Katz, L. S., Griswold, T., Morrison, S., Caravas, J., Zhang, S.,
+  den Bakker, H. C., Deng, X., and Carleton, H. A. (2019). Mashtree: a rapid
+  comparison of whole genome sequence files. *Journal of Open Source Software*,
+  4(44), 1762. https://doi.org/10.21105/joss.01762
+
+- Mash:
+  Ondov, B. D., Treangen, T. J., Melsted, P., Mallonee, A. B., Bergman, N. H.,
+  Koren, S., and Phillippy, A. M. (2016). Mash: fast genome and metagenome
+  distance estimation using MinHash. *Genome Biology*, 17, 132.
+  https://doi.org/10.1186/s13059-016-0997-x
+
+- QuickTree:
+  Howe, K., Bateman, A., and Durbin, R. (2002). QuickTree: building huge
+  neighbour-joining trees of protein sequences. *Bioinformatics*, 18(11),
+  1546-1547. https://doi.org/10.1093/bioinformatics/18.11.1546
+
+- newick-utils:
+  Junier, T., and Zdobnov, E. M. (2010). The Newick Utilities: high-throughput
+  phylogenetic tree processing in the Unix shell. *Bioinformatics*, 26(13),
+  1669-1670. https://doi.org/10.1093/bioinformatics/btq243
+
+- BioPerl:
+  Stajich, J. E., Block, D., Boulez, K., Brenner, S. E., Chervitz, S. A.,
+  Dagdigian, C., Fuellen, G., Gilbert, J. G. R., Korf, I., Lapp, H., Lehvaslaiho,
+  H., Matsalla, C., Mungall, C. J., Osborne, B. I., Pocock, M. R., Schattner, P.,
+  Senger, M., Stein, L. D., Stupka, E., Wilkinson, M. D., and Birney, E. (2002).
+  The Bioperl toolkit: Perl modules for the life sciences. *Genome Research*,
+  12(10), 1611-1618. https://doi.org/10.1101/gr.361602
+
+### Tree Visualization
+
+The tree workflow writes Newick files that can be visualized with iTOL or
+FigTree. Cite whichever visualization tool is used to generate manuscript
+figures.
+
+- iTOL:
+  Letunic, I., and Bork, P. (2024). Interactive Tree of Life (iTOL) v6: recent
+  updates to the phylogenetic tree display and annotation tool. *Nucleic Acids
+  Research*. https://doi.org/10.1093/nar/gkae268
+
+- FigTree:
+  The FigTree website does not provide a formal journal-article citation. If
+  FigTree is used for manuscript figures, cite the software and version, for
+  example: Rambaut, A. (2018). FigTree v1.4.4. Available at
+  http://tree.bio.ed.ac.uk/software/figtree/
+
+### Reproducibility Infrastructure
+
+- Docker:
+  Docker is used to run the pinned FastANI container. If the journal requires
+  citation of software infrastructure, cite Docker, for example:
+  Merkel, D. (2014). Docker: lightweight Linux containers for consistent
+  development and deployment. *Linux Journal*, 2014(239), 2.
+
+- StaPH-B FastANI container:
+  The default container image is `staphb/fastani:1.34`. The StaPH-B Docker guide
+  and Docker Hub page do not provide a separate manuscript citation for this
+  image. For reproducibility, report the image name, tag, and URL:
+  https://hub.docker.com/r/staphb/fastani
+
 ## Requirements
 
 - Docker installed and daemon running
